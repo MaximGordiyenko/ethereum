@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+Цель задания - проверить навыки работы с React.js/Node.js и с базой данных MongoDB, а также навыки изучения новых технологий
+Задание: Разработать страницу списка транзакций на блокчейне Ethereum
+1⃣ React.js
+Страница должна состоять из следующих блоков:
+1. Блок с фильтрами :
+- Input поиска транзакции (по адресу получателя/отправителя, id транзакции, номеру блока), для выбора типа поиска делаем Select с вариантами
+- Кнопка подтверждения поиска
+2. Блок списка транзакций, должен быть реализован как таблица с постраничной пагинацией. Сама транзакция должна содержать такую информацию:
+- ID транзакции (ссылка на https://etherscan.io/)
+- Адрес отправителя
+- Адрес получателя
+- Номер блока
+- Количество подтверждений (количество блоков которые вышли после блока в котором была транзакция)
+- Дата отправки транзакции (брать с блока)
+- Отправленная сумма
+- Комиссия (https://ethereum.org/ru/developers/docs/gas/)
+3. Данные по сумме и номеру блока должны выводится как число
+   2⃣ Node.js/MongoDb
+1. Разработать АПИ которое будет отправлять на Front-end список транзакций по полученным фильтрам (должна быть предусмотрена валидация данных полученных в запросе, а также пагинация), данные должны браться из базы данных
+2. Дополнительно при запуске приложения должна запускаться функция (как вариант рекурсивная, но нужно учитывать лимит запросов etherscan и добавить sleep после каждого блока), которая циклично будет делать запрос на АПИ etherscan и получать текущий блок и транзакции с него (методы которыми можно получить описаны ниже). После получения транзакций они должны сохранятся в MongoDb, откуда их уже будет получать пользователь через АПИ, а также при получении нового блока должно обновляться количество подтверждений на транзакциях которые были захвачены до этого.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. При запуске приложения должны инициализироваться последние 1000 блоков с блокчейн (если нет транзакций в БД).
+4. Данные по транзакциям можно получать из https://docs.etherscan.io/api-endpoints/geth-parity-proxy (будет достаточно методов eth_getBlockByNumber и eth_getTransactionByHash)
+   Требования к выполнению
+   Для работы со стилями использовать препроцессор SCSS
+   Страницы должны быть адаптивными
+   Для работы с базой данных использовать
+   https://www.npmjs.com/package/mongoose
+   Код разместить на github
+   Рабочий проект развернуть на heroku (или в любой другой песочнице).
+   Макеты:
+   https://www.figma.com/file/LpWuCx7YkPctSdSVwAKflI/Untitled?node-id=8201%3A3
+   для просмотра стилей и экспорта изображений нужно зарегистрироваться в figma
